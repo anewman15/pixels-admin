@@ -6,6 +6,7 @@ import {
   notificationProvider,
   ReadyPage,
   ErrorComponent,
+  Icons
 } from "@pankod/refine-antd";
 
 import { dataProvider, liveProvider } from "@pankod/refine-supabase";
@@ -23,6 +24,9 @@ import {
 import authProvider from "./authProvider";
 import UserList from "pages/users/list";
 import CanvasList from "pages/canvases/list";
+import SponsorsBanner from "components/banners/sponsors";
+
+const { GoogleOutlined, GithubOutlined } = Icons;
 
 function App() {
   return (
@@ -63,15 +67,27 @@ function App() {
           providers={[
             {
               name: "google",
+              icon: <GoogleOutlined />,
               label: "Sign in with Google",
+            },
+            {
+              name: "github",
+              icon: <GithubOutlined />,
+              label: "Sign in with GitHub",
             },
           ]}
           formProps={{
             initialValues: {
-              email: "info@refine.dev",
-              password: "refine-supabase",
+              email: "example@example.dev",
+              password: "4Goodpas5w@rd",
             },
           }}
+          renderContent={(content: React.ReactNode) => (
+            <>
+              {content}
+              <SponsorsBanner />
+            </>
+          )}
         />
       )}
       notificationProvider={notificationProvider}
