@@ -21,6 +21,8 @@ import {
   OffLayoutArea,
 } from "components/layout";
 import authProvider from "./authProvider";
+import UserList from "pages/users/list";
+import CanvasList from "pages/canvases/list";
 
 function App() {
   return (
@@ -45,6 +47,16 @@ function App() {
           },
         ],
       }}
+      resources={[
+        {
+          name: "users",
+          list: UserList,
+        },
+        {
+          name: "canvases",
+          list: CanvasList,
+        },
+      ]}
       LoginPage={() => (
         <AuthPage
           type="login"
