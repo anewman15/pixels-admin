@@ -10,7 +10,7 @@ import { TUser } from 'types/user';
 
 const { UserOutlined } = Icons;
 
-function UserList() {
+export const UserList = () => {
   const { tableProps } = useTable<TUser>();
 
   return (
@@ -47,5 +47,3 @@ function UserList() {
     </List>
   );
 };
-
-export default UserList;

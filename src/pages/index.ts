@@ -1,1 +1,2 @@
-export * from './users'
+export * from './canvases';
+export * from './users';
