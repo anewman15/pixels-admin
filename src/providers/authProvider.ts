@@ -2,7 +2,7 @@ import { AuthProvider } from "@pankod/refine-core";
 
 import { supabaseClient } from "utility";
 
-const authProvider: AuthProvider = {
+export const authProvider: AuthProvider = {
   login: async ({ email, password, providerName }) => {
     const { user, error } = await supabaseClient.auth.signIn({
       email,
@@ -85,9 +85,12 @@ const authProvider: AuthProvider = {
   getPermissions: async () => {
     const user = supabaseClient.auth.user();
 
-    if (user) {
-      return Promise.resolve(user.role);
+    if (!user) {
+      return Promise.reject();
     }
+
+    const { data } = await supabaseClient.rpc('get_my_claim', { claim: 'role' });
+    return Promise.resolve(data);
   },
   getUserIdentity: async () => {
     const user = supabaseClient.auth.user();
@@ -100,5 +103,3 @@ const authProvider: AuthProvider = {
     }
   },
 };
-
-export default authProvider;
