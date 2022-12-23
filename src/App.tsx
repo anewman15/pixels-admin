@@ -6,7 +6,8 @@ import {
   notificationProvider,
   ReadyPage,
   ErrorComponent,
-  Icons
+  Icons,
+  Image
 } from "@pankod/refine-antd";
 
 import { dataProvider, liveProvider } from "@pankod/refine-supabase";
@@ -23,9 +24,10 @@ import {
 } from "components/layout";
 import { auditLogProvider, authProvider, accessControlProvider } from "providers";
 import { CanvasList, UserList } from "pages";
-import SponsorsBanner from "components/banners/sponsors";
+import { StackBanner } from "components/banners";
 
 const { GoogleOutlined, GithubOutlined } = Icons;
+const { Link } = routerProvider;
 
 function App() {
   return (
@@ -68,27 +70,58 @@ function App() {
           providers={[
             {
               name: "google",
-              icon: <GoogleOutlined />,
+              icon: <GoogleOutlined style={{ fontSize: "18px" }} />,
               label: "Sign in with Google",
             },
             {
               name: "github",
-              icon: <GithubOutlined />,
+              icon: <GithubOutlined style={{ fontSize: "18px" }} />,
               label: "Sign in with GitHub",
             },
           ]}
           formProps={{
             initialValues: {
-              email: "example@example.dev",
-              password: "4Goodpas5w@rd",
+              email: "info@refine.dev",
+              password: "refine-supabase",
             },
           }}
-          renderContent={(content: React.ReactNode) => (
-            <>
-              {content}
-              <SponsorsBanner />
-            </>
-          )}
+          wrapperProps={{
+            style: {
+              background: "#fff",
+            },
+          }}
+          renderContent={(content: React.ReactNode) => {
+            return (
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Link to="/" style={{ marginBottom: "32px" }}>
+                  <Image
+                    height="160"
+                    src="/pixels-logo.svg"
+                    alt="pixels-logo"
+                  />
+                </Link>
+                {content}
+                <StackBanner />
+              </div>
+            );
+          }}
+          contentProps={{
+            style: {
+              backgroundColor: "#fff",
+              border: "1px solid #f5f5f5",
+              borderRadius: "16px",
+              boxShadow: "4px 8px 16px rgba(42, 42, 66, 0.25)",
+              width: "384px",
+              padding: "0",
+            },
+          }}
         />
       )}
       notificationProvider={notificationProvider}
