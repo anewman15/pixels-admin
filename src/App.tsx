@@ -21,9 +21,8 @@ import {
   Layout,
   OffLayoutArea,
 } from "components/layout";
-import authProvider from "./authProvider";
-import UserList from "pages/users/list";
-import CanvasList from "pages/canvases/list";
+import { auditLogProvider, authProvider, accessControlProvider } from "providers";
+import { CanvasList, UserList } from "pages";
 import SponsorsBanner from "components/banners/sponsors";
 
 const { GoogleOutlined, GithubOutlined } = Icons;
@@ -31,9 +30,11 @@ const { GoogleOutlined, GithubOutlined } = Icons;
 function App() {
   return (
     <Refine
+      auditLogProvider={auditLogProvider}
       dataProvider={dataProvider(supabaseClient)}
       liveProvider={liveProvider(supabaseClient)}
       authProvider={authProvider}
+      accessControlProvider={accessControlProvider}
       routerProvider={{
         ...routerProvider,
         routes: [
