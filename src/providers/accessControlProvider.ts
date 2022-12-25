@@ -1,19 +1,14 @@
 import { newEnforcer } from "casbin";
 import {  CanParams, CanReturnType } from "@pankod/refine-core";
 import { adapter, model } from "../casbin/accessControl";
-import { supabaseClient } from "utility";
+import { authProvider } from "./authProvider";
 
 export const accessControlProvider = {
   can: async ({ resource, action }: CanParams): Promise<CanReturnType> => {
-    const { data } = await supabaseClient.rpc(
-      "get_my_claim",
-      {
-        claim: "role",
-      }
-    );
+    const role = await authProvider.getPermissions();
 
     const enforcer = await newEnforcer(model, adapter);
-    const can = await enforcer.enforce(data, resource, action);
+    const can = await enforcer.enforce(role, resource, action);
 
     return Promise.resolve({
       can,

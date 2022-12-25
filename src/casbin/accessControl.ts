@@ -20,9 +20,7 @@ export const model = newModel(`
 export const adapter = new StringAdapter(`
   p, admin, users, (list)|(delete)
   p, admin, canvases, (list)|(edit)|(delete)
-  p, admin, logs, list
 
   p, editor, users, list
   p, editor, canvases, (list)|(edit)
-  p, editor, logs, list
 `);
