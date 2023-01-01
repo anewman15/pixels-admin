@@ -13,14 +13,11 @@ export const auditLogProvider: AuditLogProvider = {
           value: resource,
         },
         {
-          field: "meta.id",
+          field: "meta->canvas->id",
           operator: "eq",
-          value: meta?.id,
+          value: `"${meta?.canvas?.id}"`,
         },
       ],
-      // metaData: {
-      //   select: ""
-      // }
     });
 
     return data;
