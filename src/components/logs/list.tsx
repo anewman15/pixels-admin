@@ -1,29 +1,46 @@
 import React from 'react';
 import { useLogList } from '@pankod/refine-core';
-import { Space, Spin } from '@pankod/refine-antd';
+import { Avatar, AntdList, Space, Spin, Typography, List } from '@pankod/refine-antd';
+import { formattedDate, timeFromNow } from 'utility/time';
 
 type TLogListProps = {
-  canvasId: string;
+  currentCanvas: any;
 };
 
-export const LogList = ({ canvasId }: TLogListProps) => {
+export const LogList = ({ currentCanvas }: TLogListProps) => {
   const { isLoading, data } = useLogList({
-    resource: "canvases",
+    resource: "pixels",
     meta: {
-      id: "corny-plush-music",
+      canvas: currentCanvas,
     },
   });
 
-  if (isLoading) { return <Space direction="vertical"><Spin /></Space>}
-
   return (
-    <Space direction="vertical">
-      {
-        data?.length === 0 ? (
-          <Space>No pixels added yet.</Space>
-        ) :
-        data?.map((log: any) => <Space key={log.id}>{JSON.stringify(log?.author)}</Space>)
-      }
-    </Space>
+    <AntdList
+      size="small"
+      dataSource={data}
+      renderItem={(item: any) => (
+        <AntdList.Item>
+          <AntdList.Item.Meta
+            avatar={
+              <Avatar
+                src={JSON.parse(item?.author)?.user_metadata?.avatar_url}
+                size={20}
+              />
+            }
+          />
+          <Typography.Text style={{ fontSize: "12px" }} >
+            <strong>
+              {`${JSON.parse(item?.author)?.user_metadata?.email}`}
+            </strong>
+            {` ${item.action}d a pixel on canvas: `}
+            <strong>
+              {`${item?.meta?.canvas?.name} `}
+            </strong>
+            <span style={{ fontSize: "10px", color: "#9c9c9c"}}>{`${formattedDate(item.created_at)} - ${timeFromNow(item.created_at)} ago`}</span>
+          </Typography.Text>
+        </AntdList.Item>
+      )}
+    />
   );
 };
