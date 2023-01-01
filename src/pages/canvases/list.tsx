@@ -21,10 +21,10 @@ type TCanvasPromoteResult = {
 }
 
 export const CanvasList = () => {
-  const [canvasId, setCanvasId] = useState("");
+  const [currentCanvas, setCurrentCanvas] = useState({});
+  const { modalProps, show, close } = useModal();
   const { tableProps, formProps } = useEditableTable<TCanvas>();
   const { mutate } = useUpdate<TCanvasPromoteResult>();
-  const { modalProps, show, close } = useModal();
 
   return (
     <List>
@@ -61,34 +61,20 @@ export const CanvasList = () => {
                       },
                       metaData: {
                         canvas_id: record.id,
-                      }
+                      },
                     })
                   }
                 >
                   {record.is_featured ? "Unpromote" : "Promote"}
                 </Button>
-                <Modal
-                  title="Canvas Changes"
-                  {...modalProps}
-                  centered
-                  onOk={close}
-                  onCancel={close}
-                  footer={[
-                    <Button type="primary" key="close" onClick={close}>
-                      Close
-                    </Button>,
-                  ]}
-                >
-                  <LogList canvasId={record.id} />
-                </Modal>
                 <>
-                  <Button size="small"
+                  <Button
+                    size="small"
                     type="primary"
                     onClick={() => {
-                      // setCanvasId(record.id)
+                      setCurrentCanvas(record)
                       show();
-                    }
-                  }
+                    }}
                   >
                     View Changes
                   </Button>
@@ -99,7 +85,24 @@ export const CanvasList = () => {
           />
         </Table>
       </Form>
-
+      <Modal
+        title="Canvas Changes"
+        {...modalProps}
+        centered
+        destroyOnClose
+        onOk={close}
+        onCancel={() => {
+          close();
+          setCurrentCanvas({});
+        }}
+        footer={[
+          <Button type="primary" key="close" onClick={close}>
+            Close
+          </Button>,
+        ]}
+      >
+        <LogList currentCanvas={currentCanvas} />
+      </Modal>
     </List>
   );
 };
