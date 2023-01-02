@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLogList } from '@pankod/refine-core';
-import { Avatar, AntdList, Space, Spin, Typography, List } from '@pankod/refine-antd';
+import { Avatar, AntdList, Typography } from '@pankod/refine-antd';
 import { formattedDate, timeFromNow } from 'utility/time';
 
 type TLogListProps = {
@@ -8,7 +8,7 @@ type TLogListProps = {
 };
 
 export const LogList = ({ currentCanvas }: TLogListProps) => {
-  const { isLoading, data } = useLogList({
+  const { data } = useLogList({
     resource: "pixels",
     meta: {
       canvas: currentCanvas,
@@ -24,14 +24,14 @@ export const LogList = ({ currentCanvas }: TLogListProps) => {
           <AntdList.Item.Meta
             avatar={
               <Avatar
-                src={JSON.parse(item?.author)?.user_metadata?.avatar_url}
+                src={item?.author?.user_metadata?.avatar_url}
                 size={20}
               />
             }
           />
           <Typography.Text style={{ fontSize: "12px" }} >
             <strong>
-              {`${JSON.parse(item?.author)?.user_metadata?.email}`}
+              {`${item?.author?.user_metadata?.email}`}
             </strong>
             {` ${item.action}d a pixel on canvas: `}
             <strong>
