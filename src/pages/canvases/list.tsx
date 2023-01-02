@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLogList, useUpdate } from '@pankod/refine-core';
+import { useUpdate } from '@pankod/refine-core';
 import {
   List,
   useEditableTable,
