@@ -30,27 +30,66 @@ export const CanvasList = () => {
     <List>
       <Form {...formProps}>
         <Table {...tableProps} rowKey="id">
-          <Table.Column<TCanvas> key="id" dataIndex="id" title="ID" />
-          <Table.Column<TCanvas> key="name" dataIndex="name" title="Name" />
+          <Table.Column<TCanvas>
+            key="id"
+            dataIndex="id"
+            title={
+              <h4 style={{ textAlign: "center", fontWeight: "bold" }}>ID</h4>
+            }
+          />
+          <Table.Column<TCanvas>
+            key="name"
+            dataIndex="name"
+            title={
+              <h4 style={{ textAlign: "center", fontWeight: "bold" }}>Name</h4>
+            }
+          />
           <Table.Column<TCanvas>
             key="is_featured"
             dataIndex="is_featured"
-            title="Featured"
+            title={
+              <h4 style={{ textAlign: "center", fontWeight: "bold" }}>
+                Featured
+              </h4>
+            }
             render={(_, record) =>
               record.is_featured ? (
-                <Tag color="success">Yes</Tag>
+                <Tag
+                  color="success"
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  Yes
+                </Tag>
               ) : (
-                <Tag color="warning">No</Tag>
+                <Tag
+                  color="warning"
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  No
+                </Tag>
               )
             }
           />
           <Table.Column<TCanvas>
-            title="Actions"
+            title={
+              <h4 style={{ textAlign: "center", fontWeight: "bold" }}>
+                Actions
+              </h4>
+            }
             dataIndex="actions"
             render={(_, record) => (
-              <Space>
+              <Space style={{ display: "flex", justifyContent: "center" }}>
                 <Button
                   size="small"
+                  style={{ width: "100px" }}
                   type={record.is_featured ? "ghost" : "primary"}
                   onClick={() =>
                     mutate({
@@ -60,7 +99,7 @@ export const CanvasList = () => {
                         is_featured: !record.is_featured,
                       },
                       metaData: {
-                        canvas_id: record.id,
+                        canvas: record,
                       },
                     })
                   }
@@ -72,7 +111,7 @@ export const CanvasList = () => {
                     size="small"
                     type="primary"
                     onClick={() => {
-                      setCurrentCanvas(record)
+                      setCurrentCanvas(record);
                       show();
                     }}
                   >
@@ -86,7 +125,7 @@ export const CanvasList = () => {
         </Table>
       </Form>
       <Modal
-        title="Canvas Changes"
+        title={<h3 style={{ fontWeight: "bold" }}>Canvas Changes</h3>}
         {...modalProps}
         centered
         destroyOnClose

@@ -18,7 +18,9 @@ export const UserList = () => {
       <Table {...tableProps} rowKey={"id"}>
         <Table.Column
           dataIndex="avatar_url"
-          title="Avatar"
+          title={
+            <h4 style={{ textAlign: "center", fontWeight: "bold" }}>Avatar</h4>
+          }
           render={(_, record: TUser) => (
             <Avatar
               icon={<UserOutlined />}
@@ -27,20 +29,46 @@ export const UserList = () => {
             />
           )}
         />
-        <Table.Column dataIndex="id" title="ID" />
-        <Table.Column dataIndex="email" title="Email" />
+        <Table.Column
+          dataIndex="id"
+          title={
+            <h4 style={{ textAlign: "center", fontWeight: "bold" }}>ID</h4>
+          }
+        />
+        <Table.Column
+          dataIndex="email"
+          title={
+            <h4 style={{ textAlign: "center", fontWeight: "bold" }}>Email</h4>
+          }
+        />
         <Table.Column
           dataIndex="full_name"
-          title="Full Name"
+          title={
+            <h4 style={{ textAlign: "center", fontWeight: "bold" }}>
+              Full Name
+            </h4>
+          }
           render={(_, record: TUser) =>
-            record.full_name ? record.full_name : <p>--</p>
+            record.full_name ? (
+              record.full_name
+            ) : (
+              <p style={{ textAlign: "center", fontWeight: "bold" }}>--</p>
+            )
           }
         />
         <Table.Column
           dataIndex="username"
-          title="Username"
+          title={
+            <h4 style={{ textAlign: "center", fontWeight: "bold" }}>
+              Username
+            </h4>
+          }
           render={(_, record: TUser) =>
-            record.username ? record.username : <p>--</p>
+            record.username ? (
+              record.username
+            ) : (
+              <p style={{ textAlign: "center", fontWeight: "bold" }}>--</p>
+            )
           }
         />
       </Table>
