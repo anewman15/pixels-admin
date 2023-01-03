@@ -31,7 +31,7 @@ export const LogList = ({ currentCanvas }: TLogListProps) => {
           />
           <Typography.Text style={{ fontSize: "12px" }} >
             <strong>
-              {`${item?.author?.user_metadata?.email}`}
+              {item?.author?.user_metadata?.email}
             </strong>
             {` ${item.action}d a pixel on canvas: `}
             <strong>
